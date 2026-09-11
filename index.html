@@ -1,12 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spandana ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Spandana My Love ❤️</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+}
+
+body{
+  background:
+    radial-gradient(circle at top,#ff8eb7 0%,transparent 38%),
+    linear-gradient(160deg,#ff4f8b,#c9185b 48%,#65052e 100%);
+  color:white;
+}
+
+/* Falling hearts */
+.hearts{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:2;
+}
+
+.heart{
+  position:absolute;
+  top:-50px;
+  opacity:.75;
+  animation:fall linear infinite;
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.3));
+}
+
+@keyframes fall{
+  0%{
+    transform:translateY(-10vh) rotate(0deg);
+    opacity:0;
+  }
+  10%{opacity:.8;}
+  100%{
+    transform:translateY(115vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* Main opening screen */
+.hero{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:
+    calc(30px + env(safe-area-inset-top))
+    22px
+    calc(30px + env(safe-area-inset-bottom));
+  position:relative;
+  z-index:5;
+  text-align:center;
+}
+
+.glass{
+  width:100%;
+  max-width:430px;
+  padding:45px 24px 38px;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:32px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:
+    0 30px 70px rgba(75,0,35,.4),
+    inset 0 1px 0 rgba(255,255,255,.4);
+  animation:fadeUp 1.2s ease;
+}
+
+.mini{
+  font-size:14px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  opacity:.85;
+  margin-bottom:18px;
+}
+
+h1{
+  font-family:Georgia,serif;
+  font-size:44px;
+  line-height:1.05;
+  text-shadow:0 6px 25px rgba(70,0,30,.35);
+}
+
+.name{
+  display:block;
+  margin-top:15px;
+  font-size:27px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:#fff6fa;
+}
+
+.subtitle{
+  margin:22px auto 0;
+  max-width:300px;
+  line-height:1.7;
+  font-size:17px;
+  color:rgba(255,255,255,.9);
+}
+
+.big-heart{
+  font-size:54px;
+  margin:26px 0 22px;
+  animation:beat 1.5s infinite;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.45));
+}
+
+.start-btn{
+  width:100%;
+  border:0;
+  border-radius:999px;
+  padding:18px 20px;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:.4px;
+  color:#b20d4d;
+  background:white;
+  box-shadow:0 14px 35px rgba(80,0,35,.35);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:.25s ease;
+}
+
+.start-btn:active{
+  transform:scale(.96);
+}
+
+.small-note{
+  font-size:12px;
+  opacity:.7;
+  margin-top:17px;
+}
+
+/* Surprise section */
+.surprise{
+  display:none;
+  min-height:100svh;
+  position:relative;
+  z-index:5;
+  padding:
+    calc(50px + env(safe-area-inset-top))
+    22px
+    calc(60px + env(safe-area-inset-bottom));
+  text-align:center;
+}
+
+.surprise.show{
+  display:block;
+  animation:fadeUp .9s ease;
+}
+
+.surprise h2{
+  font-family:Georgia,serif;
+  font-size:35px;
+  margin-bottom:12px;
+}
+
+.surprise p{
+  line-height:1.7;
+  opacity:.9;
+}
+
+.gift-box{
+  margin:35px auto 0;
+  max-width:400px;
+  padding:28px 20px;
+  border-radius:28px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 20px 50px rgba(50,0,20,.28);
+}
+
+.gift-icon{
+  font-size:66px;
+  margin-bottom:17px;
+  animation:float 2.4s ease-in-out infinite;
+}
+
+.gift-box h3{
+  font-size:25px;
+  margin-bottom:12px;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.14);}
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+</style>
 </head>
+
 <body>
-  <h1>Happy Birthday Spandana ❤️</h1>
-  <p>Your surprise is coming soon...</p>
+
+<div class="hearts" id="hearts"></div>
+
+<section class="hero" id="hero">
+  <div class="glass">
+
+    <div class="mini">A little surprise for you</div>
+
+    <h1>
+      Happy Birthday ❤️
+      <span class="name">SPANDANA MY LOVE</span>
+    </h1>
+
+    <div class="big-heart">💗</div>
+
+    <p class="subtitle">
+      Today is all about you.<br>
+      I made something special, just for the love of my life.
+    </p>
+
+    <br>
+
+    <button class="start-btn" onclick="startSurprise()">
+      START YOUR SURPRISE ❤️
+    </button>
+
+    <div class="small-note">
+      Made with love, only for you
+    </div>
+
+  </div>
+</section>
+
+<section class="surprise" id="surprise">
+
+  <h2>Your Birthday Adventure Begins ❤️</h2>
+
+  <p>
+    Seven little surprises are waiting for you.<br>
+    One gift. One clue. One beautiful memory at a time.
+  </p>
+
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <h3>Gift 1</h3>
+    <p>
+      Your first clue will appear here...
+    </p>
+  </div>
+
+</section>
+
+<script>
+function startSurprise(){
+  document.getElementById("hero").style.display="none";
+  document.getElementById("surprise").classList.add("show");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+const hearts = document.getElementById("hearts");
+
+const symbols = ["❤️","💕","💗","💖","♡"];
+
+for(let i=0;i<22;i++){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
+
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(14+Math.random()*24)+"px";
+  heart.style.animationDuration=(6+Math.random()*7)+"s";
+  heart.style.animationDelay=(Math.random()*8)+"s";
+
+  hearts.appendChild(heart);
+}
+</script>
+
 </body>
 </html>
