@@ -13,224 +13,336 @@
 }
 
 html,body{
-  width:100%;
   min-height:100%;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   overflow-x:hidden;
 }
 
 body{
-  background:
-    radial-gradient(circle at top,#ff8eb7 0%,transparent 38%),
-    linear-gradient(160deg,#ff4f8b,#c9185b 48%,#65052e 100%);
   color:white;
+  background:
+    radial-gradient(circle at top,#ff9fbe 0%,transparent 32%),
+    linear-gradient(160deg,#ff528d 0%,#c5175b 52%,#65032c 100%);
 }
 
-/* Falling hearts */
-.hearts{
+.bg-hearts,
+.petals{
   position:fixed;
   inset:0;
   overflow:hidden;
   pointer-events:none;
-  z-index:2;
 }
 
-.heart{
+.bg-hearts{z-index:1}
+.petals{z-index:30;display:none}
+
+.floating-heart{
   position:absolute;
   top:-50px;
-  opacity:.75;
-  animation:fall linear infinite;
-  filter:drop-shadow(0 0 8px rgba(255,255,255,.3));
+  animation:heartFall linear infinite;
+  opacity:.65;
 }
 
-@keyframes fall{
-  0%{
-    transform:translateY(-10vh) rotate(0deg);
-    opacity:0;
-  }
-  10%{opacity:.8;}
-  100%{
-    transform:translateY(115vh) rotate(360deg);
-    opacity:0;
-  }
+@keyframes heartFall{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+  10%{opacity:.7}
+  100%{transform:translateY(115vh) rotate(360deg);opacity:0}
 }
 
-/* Main opening screen */
-.hero{
+.screen{
   min-height:100svh;
-  display:flex;
+  display:none;
   align-items:center;
   justify-content:center;
-  padding:
-    calc(30px + env(safe-area-inset-top))
-    22px
-    calc(30px + env(safe-area-inset-bottom));
   position:relative;
   z-index:5;
   text-align:center;
+  padding:
+    calc(28px + env(safe-area-inset-top))
+    20px
+    calc(35px + env(safe-area-inset-bottom));
 }
 
-.glass{
+.screen.active{
+  display:flex;
+  animation:fadeUp .8s ease;
+}
+
+.card{
   width:100%;
   max-width:430px;
-  padding:45px 24px 38px;
-  border:1px solid rgba(255,255,255,.3);
+  padding:40px 23px;
   border-radius:32px;
-  background:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.28);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  box-shadow:
-    0 30px 70px rgba(75,0,35,.4),
-    inset 0 1px 0 rgba(255,255,255,.4);
-  animation:fadeUp 1.2s ease;
+  box-shadow:0 30px 70px rgba(70,0,30,.38);
 }
 
 .mini{
-  font-size:14px;
+  font-size:12px;
   letter-spacing:4px;
   text-transform:uppercase;
-  opacity:.85;
+  opacity:.8;
   margin-bottom:18px;
 }
 
-h1{
+h1,h2,h3{
   font-family:Georgia,serif;
-  font-size:44px;
-  line-height:1.05;
-  text-shadow:0 6px 25px rgba(70,0,30,.35);
+}
+
+h1{
+  font-size:43px;
+  line-height:1.08;
 }
 
 .name{
   display:block;
   margin-top:15px;
   font-size:27px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:#fff6fa;
+}
+
+.main-heart{
+  font-size:58px;
+  margin:25px 0;
+  animation:beat 1.5s infinite;
 }
 
 .subtitle{
-  margin:22px auto 0;
-  max-width:300px;
-  line-height:1.7;
   font-size:17px;
-  color:rgba(255,255,255,.9);
-}
-
-.big-heart{
-  font-size:54px;
-  margin:26px 0 22px;
-  animation:beat 1.5s infinite;
-  filter:drop-shadow(0 0 20px rgba(255,255,255,.45));
-}
-
-.start-btn{
-  width:100%;
-  border:0;
-  border-radius:999px;
-  padding:18px 20px;
-  font-size:16px;
-  font-weight:800;
-  letter-spacing:.4px;
-  color:#b20d4d;
-  background:white;
-  box-shadow:0 14px 35px rgba(80,0,35,.35);
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-  transition:.25s ease;
-}
-
-.start-btn:active{
-  transform:scale(.96);
-}
-
-.small-note{
-  font-size:12px;
-  opacity:.7;
-  margin-top:17px;
-}
-
-/* Surprise section */
-.surprise{
-  display:none;
-  min-height:100svh;
-  position:relative;
-  z-index:5;
-  padding:
-    calc(50px + env(safe-area-inset-top))
-    22px
-    calc(60px + env(safe-area-inset-bottom));
-  text-align:center;
-}
-
-.surprise.show{
-  display:block;
-  animation:fadeUp .9s ease;
-}
-
-.surprise h2{
-  font-family:Georgia,serif;
-  font-size:35px;
-  margin-bottom:12px;
-}
-
-.surprise p{
   line-height:1.7;
-  opacity:.9;
+  opacity:.92;
 }
 
-.gift-box{
-  margin:35px auto 0;
-  max-width:400px;
-  padding:28px 20px;
-  border-radius:28px;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.28);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  box-shadow:0 20px 50px rgba(50,0,20,.28);
+.btn{
+  width:100%;
+  border:none;
+  border-radius:999px;
+  padding:18px 18px;
+  margin-top:22px;
+  font-size:15px;
+  font-weight:800;
+  background:white;
+  color:#ae104c;
+  box-shadow:0 14px 35px rgba(60,0,25,.28);
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.secondary{
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.34);
+  color:white;
+}
+
+.progress{
+  font-size:12px;
+  letter-spacing:3px;
+  opacity:.75;
+  margin-bottom:16px;
 }
 
 .gift-icon{
-  font-size:66px;
-  margin-bottom:17px;
-  animation:float 2.4s ease-in-out infinite;
+  font-size:70px;
+  margin:18px 0;
+  animation:float 2.3s ease-in-out infinite;
 }
 
-.gift-box h3{
-  font-size:25px;
-  margin-bottom:12px;
+.riddle{
+  margin-top:20px;
+  padding:23px 18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.12);
+  font-size:18px;
+  line-height:1.7;
+}
+
+.answer{
+  width:100%;
+  margin-top:22px;
+  padding:17px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.15);
+  color:white;
+  text-align:center;
+  font-size:17px;
+  outline:none;
+}
+
+.answer::placeholder{
+  color:rgba(255,255,255,.65);
+}
+
+.wrong{
+  min-height:28px;
+  margin-top:14px;
+  font-size:14px;
+  color:#ffe2ec;
+}
+
+.unlock-title{
+  font-size:14px;
+  letter-spacing:3px;
+  margin-bottom:18px;
+}
+
+.photo-box{
+  width:100%;
+  aspect-ratio:4/3;
+  border-radius:25px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  margin:24px 0;
+  overflow:hidden;
+}
+
+.photo-box .emoji{
+  font-size:72px;
+}
+
+.photo-box p{
+  font-size:13px;
+  opacity:.7;
+  margin-top:10px;
+}
+
+.gift-name{
+  font-size:34px;
+  margin-bottom:17px;
+}
+
+.romantic{
+  font-family:Georgia,serif;
+  font-size:20px;
+  line-height:1.6;
+  margin-bottom:21px;
+}
+
+.why-box{
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.12);
+  text-align:left;
+  line-height:1.65;
+}
+
+.why-box strong{
+  display:block;
+  margin-bottom:7px;
+}
+
+.last-heart{
+  font-size:115px;
+  margin:30px 0 16px;
+  filter:drop-shadow(0 0 28px rgba(255,255,255,.55));
+  animation:bigBeat 1.3s infinite;
+  cursor:pointer;
+}
+
+.click-heart{
+  font-size:16px;
+  letter-spacing:2px;
+  font-weight:700;
+}
+
+.video-wrap{
+  width:100%;
+  margin-top:25px;
+  border-radius:26px;
+  overflow:hidden;
+  background:#19000c;
+  box-shadow:0 20px 50px rgba(40,0,15,.5);
+}
+
+video{
+  width:100%;
+  display:block;
+  max-height:72svh;
+  background:black;
+}
+
+.final-screen{
+  background:
+    radial-gradient(circle at center,#d51b62 0%,#65022c 72%);
+}
+
+.final-heart{
+  font-size:125px;
+  animation:bigBeat 1.35s infinite;
+  filter:drop-shadow(0 0 35px rgba(255,130,170,.75));
+}
+
+.final-title{
+  margin-top:22px;
+  font-size:31px;
+  line-height:1.35;
+}
+
+.final-love{
+  margin-top:16px;
+  font-family:Georgia,serif;
+  font-size:23px;
+}
+
+.petal{
+  position:absolute;
+  top:-60px;
+  font-size:26px;
+  animation:petalFall linear infinite;
+}
+
+@keyframes petalFall{
+  0%{
+    transform:translateY(-10vh) rotate(0deg) translateX(0);
+    opacity:0;
+  }
+  10%{opacity:.9}
+  50%{transform:translateY(55vh) rotate(180deg) translateX(40px)}
+  100%{
+    transform:translateY(115vh) rotate(380deg) translateX(-35px);
+    opacity:.75;
+  }
 }
 
 @keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(30px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 @keyframes beat{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.14);}
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.13)}
+}
+
+@keyframes bigBeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.16)}
 }
 
 @keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="hearts" id="hearts"></div>
+<div class="bg-hearts" id="bgHearts"></div>
+<div class="petals" id="petals"></div>
 
-<section class="hero" id="hero">
-  <div class="glass">
+<!-- OPENING -->
+<section class="screen active" id="welcome">
+  <div class="card">
 
     <div class="mini">A little surprise for you</div>
 
@@ -239,68 +351,483 @@ h1{
       <span class="name">SPANDANA MY LOVE</span>
     </h1>
 
-    <div class="big-heart">💗</div>
+    <div class="main-heart">💗</div>
 
     <p class="subtitle">
       Today is all about you.<br>
-      I made something special, just for the love of my life.
+      Seven little surprises are waiting for you.
     </p>
 
-    <br>
-
-    <button class="start-btn" onclick="startSurprise()">
+    <button class="btn" onclick="startGame()">
       START YOUR SURPRISE ❤️
     </button>
 
-    <div class="small-note">
-      Made with love, only for you
+  </div>
+</section>
+
+<!-- RIDDLE -->
+<section class="screen" id="riddleScreen">
+  <div class="card">
+
+    <div class="progress" id="progress"></div>
+
+    <div class="gift-icon">🎁</div>
+
+    <h2 id="riddleTitle"></h2>
+
+    <div class="riddle" id="riddleText"></div>
+
+    <input
+      id="answerInput"
+      class="answer"
+      placeholder="Type your answer ❤️"
+      autocomplete="off">
+
+    <div class="wrong" id="wrongText"></div>
+
+    <button class="btn" onclick="checkAnswer()">
+      UNLOCK MY GIFT ❤️
+    </button>
+
+  </div>
+</section>
+
+<!-- GIFT REVEAL -->
+<section class="screen" id="giftReveal">
+  <div class="card">
+
+    <div class="unlock-title" id="unlockTitle"></div>
+
+    <h2 class="gift-name" id="giftName"></h2>
+
+    <div class="photo-box">
+      <div class="emoji" id="giftEmoji"></div>
+      <p>Your gift photo will go here</p>
+    </div>
+
+    <div class="romantic" id="romanticLine"></div>
+
+    <div class="why-box">
+      <strong>Why I chose this for you ❤️</strong>
+      <span id="whyText"></span>
+    </div>
+
+    <button class="btn" id="nextGiftButton" onclick="nextGift()">
+      I GOT MY GIFT ❤️ — NEXT
+    </button>
+
+  </div>
+</section>
+
+<!-- LAST SURPRISE -->
+<section class="screen" id="lastSurprise">
+  <div class="card">
+
+    <div class="mini">You unlocked all 7 gifts</div>
+
+    <h2 style="font-size:38px">One Last Surprise ❤️</h2>
+
+    <p class="subtitle" style="margin-top:18px">
+      There is still one little piece of my heart waiting for you.
+    </p>
+
+    <div class="last-heart" onclick="openVideo()">❤️</div>
+
+    <div class="click-heart">
+      CLICK ON MY HEART
     </div>
 
   </div>
 </section>
 
-<section class="surprise" id="surprise">
+<!-- VIDEO -->
+<section class="screen" id="videoScreen">
+  <div class="card">
 
-  <h2>Your Birthday Adventure Begins ❤️</h2>
+    <div class="mini">For you, my love ❤️</div>
 
-  <p>
-    Seven little surprises are waiting for you.<br>
-    One gift. One clue. One beautiful memory at a time.
-  </p>
+    <h2 style="font-size:34px">
+      A Memory From My Heart
+    </h2>
 
-  <div class="gift-box">
-    <div class="gift-icon">🎁</div>
-    <h3>Gift 1</h3>
-    <p>
-      Your first clue will appear here...
-    </p>
+    <div class="video-wrap">
+
+      <video
+        id="birthdayVideo"
+        controls
+        playsinline
+        onended="showEnding()">
+
+        <!-- WE WILL ADD YOUR VIDEO FILE HERE LATER -->
+
+      </video>
+
+    </div>
+
   </div>
+</section>
 
+<!-- ENDING -->
+<section class="screen final-screen" id="endingScreen">
+  <div class="card">
+
+    <div class="final-heart">❤️</div>
+
+    <h2 class="final-title">
+      Thank you for coming into my life. ❤️
+    </h2>
+
+    <div class="final-love">
+      I love you, Spandana.
+    </div>
+
+  </div>
 </section>
 
 <script>
-function startSurprise(){
-  document.getElementById("hero").style.display="none";
-  document.getElementById("surprise").classList.add("show");
+
+const gifts = [
+
+{
+  name:"Gym Bag",
+  emoji:"🎒",
+  riddle:
+  "Every workout needs a little preparation. Shoes, bottle, clothes and more — what gift keeps all your gym essentials together?",
+  answers:["gym bag","bag","sports bag","workout bag"],
+  romantic:
+  "For every strong step you take, I want to be there cheering for you. ❤️",
+  why:
+  "I chose this because I know how much effort you put into your fitness. I wanted to give you something useful that can be part of your everyday gym journey."
+},
+
+{
+  name:"Gym Gloves",
+  emoji:"🧤",
+  riddle:
+  "When the weights get heavier, your hands need a little extra support. What gift helps protect your grip while you train?",
+  answers:["gym gloves","workout gloves","training gloves","lifting gloves","gloves"],
+  romantic:
+  "For the strong woman I love, who keeps pushing herself every day. ❤️",
+  why:
+  "I chose these because I know you give your best during every workout. I wanted something that protects your hands and supports you while you get stronger."
+},
+
+{
+  name:"Body Mist",
+  emoji:"🌸",
+  riddle:
+  "Some memories stay in the heart, and some stay in the air around us. What gift can leave a beautiful fragrance wherever you go?",
+  answers:["body mist","mist","perfume","fragrance","scent"],
+  romantic:
+  "A beautiful fragrance for the woman who makes every moment around her feel special. ❤️",
+  why:
+  "I chose this because a lovely fragrance can become part of a memory. I wanted you to have something that feels fresh, elegant, and reminds you of this birthday whenever you use it."
+},
+
+{
+  name:"Sunglasses",
+  emoji:"🕶️",
+  riddle:
+  "When the sun shines bright, style and comfort come together. What gift helps protect your eyes and adds a little extra style?",
+  answers:["sunglasses","sun glasses","shades","goggles"],
+  romantic:
+  "Because you make everything look beautiful — even brighter days. ❤️",
+  why:
+  "I chose this because I wanted something stylish and useful, something you can wear often and feel confident in every time you step out."
+},
+
+{
+  name:"Piggy Bank",
+  emoji:"🐷",
+  riddle:
+  "A little today can become something big tomorrow. What gift quietly keeps your small savings safe, one coin at a time?",
+  answers:["piggy bank","money box","coin box","savings box","saving box"],
+  romantic:
+  "For all the little dreams we are still going to build together. ❤️",
+  why:
+  "I chose this because saving little by little can create something meaningful over time. I wanted this gift to remind you of our future plans and the dreams we can build together."
+},
+
+{
+  name:"Watch",
+  emoji:"⌚",
+  riddle:
+  "Time decided when our paths would meet, and since then, every second with you has become special. What gift reminds us that every moment together matters?",
+  answers:["watch","wrist watch","wristwatch","timepiece"],
+  romantic:
+  "For every beautiful second we’ve shared, and all the ones still waiting for us. ❤️",
+  why:
+  "I chose this because time means more to me when I think about us. I wanted you to have something that reminds you that every moment with you is special to me."
+},
+
+{
+  name:"Photo Book",
+  emoji:"📖",
+  riddle:
+  "Some moments pass, but the memories stay with us forever. What gift keeps our beautiful moments together, page by page?",
+  answers:["photo book","photobook","memory book","album","photo album","memories"],
+  romantic:
+  "A little book filled with pieces of our story. ❤️",
+  why:
+  "I chose this because photos are more than pictures to me — they are moments of us. I wanted to keep some of our memories together in one place, so whenever you open it, you can relive a part of our journey."
+}
+
+];
+
+let currentGift = 0;
+
+function showScreen(id){
+
+  document.querySelectorAll(".screen")
+  .forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id)
+  .classList.add("active");
+
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-const hearts = document.getElementById("hearts");
+function startGame(){
 
-const symbols = ["❤️","💕","💗","💖","♡"];
+  currentGift = 0;
 
-for(let i=0;i<22;i++){
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
+  loadRiddle();
 
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(14+Math.random()*24)+"px";
-  heart.style.animationDuration=(6+Math.random()*7)+"s";
-  heart.style.animationDelay=(Math.random()*8)+"s";
+  showScreen("riddleScreen");
 
-  hearts.appendChild(heart);
 }
+
+function loadRiddle(){
+
+  const gift = gifts[currentGift];
+
+  document.getElementById("progress").innerText =
+  "GIFT " + (currentGift + 1) + " OF 7";
+
+  document.getElementById("riddleTitle").innerText =
+  "Unlock Gift " + (currentGift + 1) + " ❤️";
+
+  document.getElementById("riddleText").innerText =
+  gift.riddle;
+
+  document.getElementById("answerInput").value = "";
+
+  document.getElementById("wrongText").innerText = "";
+
+}
+
+function cleanAnswer(text){
+
+  return text
+  .toLowerCase()
+  .trim()
+  .replace(/[^\w\s]/g,"")
+  .replace(/\s+/g," ");
+
+}
+
+function checkAnswer(){
+
+  const input =
+  cleanAnswer(
+    document.getElementById("answerInput").value
+  );
+
+  const gift = gifts[currentGift];
+
+  const correct =
+  gift.answers.some(
+    ans => cleanAnswer(ans) === input
+  );
+
+  if(correct){
+
+    showGiftReveal();
+
+  }else{
+
+    document.getElementById("wrongText").innerText =
+    "Almost, my love ❤️ Think once more…";
+
+  }
+
+}
+
+function showGiftReveal(){
+
+  const gift = gifts[currentGift];
+
+  document.getElementById("unlockTitle").innerText =
+  "❤️ GIFT " + (currentGift + 1) + " UNLOCKED ❤️";
+
+  document.getElementById("giftName").innerText =
+  gift.name;
+
+  document.getElementById("giftEmoji").innerText =
+  gift.emoji;
+
+  document.getElementById("romanticLine").innerText =
+  gift.romantic;
+
+  document.getElementById("whyText").innerText =
+  gift.why;
+
+  const button =
+  document.getElementById("nextGiftButton");
+
+  if(currentGift === 6){
+
+    button.innerText =
+    "I GOT MY GIFT ❤️ — CONTINUE";
+
+  }else{
+
+    button.innerText =
+    "I GOT MY GIFT ❤️ — NEXT";
+
+  }
+
+  showScreen("giftReveal");
+
+}
+
+function nextGift(){
+
+  if(currentGift < 6){
+
+    currentGift++;
+
+    loadRiddle();
+
+    showScreen("riddleScreen");
+
+  }else{
+
+    showScreen("lastSurprise");
+
+  }
+
+}
+
+function openVideo(){
+
+  showScreen("videoScreen");
+
+  const video =
+  document.getElementById("birthdayVideo");
+
+  if(video.src){
+    video.play().catch(()=>{});
+  }
+
+}
+
+function showEnding(){
+
+  showScreen("endingScreen");
+
+  startPetals();
+
+}
+
+function startPetals(){
+
+  const container =
+  document.getElementById("petals");
+
+  container.style.display = "block";
+
+  container.innerHTML = "";
+
+  const petals =
+  ["🌹","🌸","💮"];
+
+  for(let i=0;i<35;i++){
+
+    const petal =
+    document.createElement("div");
+
+    petal.className =
+    "petal";
+
+    petal.innerText =
+    petals[
+      Math.floor(
+        Math.random()*petals.length
+      )
+    ];
+
+    petal.style.left =
+    Math.random()*100+"vw";
+
+    petal.style.animationDuration =
+    (6+Math.random()*6)+"s";
+
+    petal.style.animationDelay =
+    (Math.random()*5)+"s";
+
+    petal.style.fontSize =
+    (18+Math.random()*22)+"px";
+
+    container.appendChild(petal);
+
+  }
+
+}
+
+/* background hearts */
+
+const hearts =
+document.getElementById("bgHearts");
+
+const heartSymbols =
+["❤️","💕","💗","💖","♡"];
+
+for(let i=0;i<23;i++){
+
+  const h =
+  document.createElement("div");
+
+  h.className =
+  "floating-heart";
+
+  h.innerText =
+  heartSymbols[
+    Math.floor(
+      Math.random()*heartSymbols.length
+    )
+  ];
+
+  h.style.left =
+  Math.random()*100+"vw";
+
+  h.style.fontSize =
+  (14+Math.random()*24)+"px";
+
+  h.style.animationDuration =
+  (6+Math.random()*8)+"s";
+
+  h.style.animationDelay =
+  (Math.random()*7)+"s";
+
+  hearts.appendChild(h);
+
+}
+
+/* press Enter to submit answer */
+
+document
+.getElementById("answerInput")
+.addEventListener("keydown",function(e){
+
+  if(e.key === "Enter"){
+    checkAnswer();
+  }
+
+});
+
 </script>
 
 </body>
