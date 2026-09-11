@@ -13,6 +13,7 @@
 }
 
 html,body{
+  width:100%;
   min-height:100%;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   overflow-x:hidden;
@@ -33,8 +34,14 @@ body{
   pointer-events:none;
 }
 
-.bg-hearts{z-index:1}
-.petals{z-index:30;display:none}
+.bg-hearts{
+  z-index:1;
+}
+
+.petals{
+  z-index:30;
+  display:none;
+}
 
 .floating-heart{
   position:absolute;
@@ -44,9 +51,15 @@ body{
 }
 
 @keyframes heartFall{
-  0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+  0%{
+    transform:translateY(-10vh) rotate(0deg);
+    opacity:0;
+  }
   10%{opacity:.7}
-  100%{transform:translateY(115vh) rotate(360deg);opacity:0}
+  100%{
+    transform:translateY(115vh) rotate(360deg);
+    opacity:0;
+  }
 }
 
 .screen{
@@ -119,7 +132,7 @@ h1{
   width:100%;
   border:none;
   border-radius:999px;
-  padding:18px 18px;
+  padding:18px;
   margin-top:22px;
   font-size:15px;
   font-weight:800;
@@ -136,6 +149,28 @@ h1{
   background:rgba(255,255,255,.16);
   border:1px solid rgba(255,255,255,.34);
   color:white;
+}
+
+.love-question{
+  font-size:40px;
+  line-height:1.25;
+}
+
+.love-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:25px;
+}
+
+.love-buttons .btn{
+  margin-top:0;
+}
+
+.no-message{
+  min-height:30px;
+  margin-top:18px;
+  font-size:15px;
+  color:#ffe7f0;
 }
 
 .progress{
@@ -270,33 +305,55 @@ video{
   background:black;
 }
 
-.final-screen{
+/* FULL SCREEN ENDING */
+
+#endingScreen{
+  padding:0;
+  min-height:100svh;
   background:
-    radial-gradient(circle at center,#d51b62 0%,#65022c 72%);
+    radial-gradient(circle at 50% 45%,#e52970 0%,#99033f 42%,#410018 100%);
+}
+
+.final-content{
+  width:100%;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:
+    calc(40px + env(safe-area-inset-top))
+    28px
+    calc(50px + env(safe-area-inset-bottom));
+  position:relative;
+  z-index:31;
 }
 
 .final-heart{
-  font-size:125px;
+  font-size:150px;
   animation:bigBeat 1.35s infinite;
-  filter:drop-shadow(0 0 35px rgba(255,130,170,.75));
+  filter:
+    drop-shadow(0 0 25px rgba(255,170,190,.9))
+    drop-shadow(0 0 55px rgba(255,40,110,.7));
 }
 
 .final-title{
-  margin-top:22px;
-  font-size:31px;
-  line-height:1.35;
+  margin-top:28px;
+  font-size:38px;
+  line-height:1.3;
+  max-width:500px;
+  text-shadow:0 8px 30px rgba(0,0,0,.3);
 }
 
 .final-love{
-  margin-top:16px;
+  margin-top:22px;
   font-family:Georgia,serif;
-  font-size:23px;
+  font-size:27px;
 }
 
 .petal{
   position:absolute;
   top:-60px;
-  font-size:26px;
   animation:petalFall linear infinite;
 }
 
@@ -305,8 +362,10 @@ video{
     transform:translateY(-10vh) rotate(0deg) translateX(0);
     opacity:0;
   }
-  10%{opacity:.9}
-  50%{transform:translateY(55vh) rotate(180deg) translateX(40px)}
+  10%{opacity:.95}
+  50%{
+    transform:translateY(55vh) rotate(180deg) translateX(40px);
+  }
   100%{
     transform:translateY(115vh) rotate(380deg) translateX(-35px);
     opacity:.75;
@@ -314,8 +373,14 @@ video{
 }
 
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(25px)}
-  to{opacity:1;transform:translateY(0)}
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 @keyframes beat{
@@ -325,7 +390,7 @@ video{
 
 @keyframes bigBeat{
   0%,100%{transform:scale(1)}
-  50%{transform:scale(1.16)}
+  50%{transform:scale(1.17)}
 }
 
 @keyframes float{
@@ -341,37 +406,86 @@ video{
 <div class="petals" id="petals"></div>
 
 <!-- OPENING -->
+
 <section class="screen active" id="welcome">
   <div class="card">
 
-    <div class="mini">A little surprise for you</div>
+    <div class="mini">
+      A little surprise for you
+    </div>
 
     <h1>
       Happy Birthday ❤️
-      <span class="name">SPANDANA MY LOVE</span>
+      <span class="name">
+        SPANDANA MY LOVE
+      </span>
     </h1>
 
-    <div class="main-heart">💗</div>
+    <div class="main-heart">
+      💗
+    </div>
 
     <p class="subtitle">
       Today is all about you.<br>
       Seven little surprises are waiting for you.
     </p>
 
-    <button class="btn" onclick="startGame()">
+    <button class="btn" onclick="showLoveQuestion()">
       START YOUR SURPRISE ❤️
     </button>
 
   </div>
 </section>
 
+
+<!-- DO YOU LOVE ME -->
+
+<section class="screen" id="loveScreen">
+
+  <div class="card">
+
+    <div class="mini">
+      Before we begin...
+    </div>
+
+    <div class="main-heart">
+      ❤️
+    </div>
+
+    <h2 class="love-question">
+      Do you love me? ❤️
+    </h2>
+
+    <div class="love-buttons">
+
+      <button class="btn" onclick="startGame()">
+        YES ❤️
+      </button>
+
+      <button class="btn secondary" onclick="noLove()">
+        NO 😏
+      </button>
+
+    </div>
+
+    <div class="no-message" id="noMessage"></div>
+
+  </div>
+
+</section>
+
+
 <!-- RIDDLE -->
+
 <section class="screen" id="riddleScreen">
+
   <div class="card">
 
     <div class="progress" id="progress"></div>
 
-    <div class="gift-icon">🎁</div>
+    <div class="gift-icon">
+      🎁
+    </div>
 
     <h2 id="riddleTitle"></h2>
 
@@ -390,10 +504,14 @@ video{
     </button>
 
   </div>
+
 </section>
 
+
 <!-- GIFT REVEAL -->
+
 <section class="screen" id="giftReveal">
+
   <div class="card">
 
     <div class="unlock-title" id="unlockTitle"></div>
@@ -401,15 +519,25 @@ video{
     <h2 class="gift-name" id="giftName"></h2>
 
     <div class="photo-box">
+
       <div class="emoji" id="giftEmoji"></div>
-      <p>Your gift photo will go here</p>
+
+      <p>
+        Your gift photo will go here
+      </p>
+
     </div>
 
     <div class="romantic" id="romanticLine"></div>
 
     <div class="why-box">
-      <strong>Why I chose this for you ❤️</strong>
+
+      <strong>
+        Why I chose this for you ❤️
+      </strong>
+
       <span id="whyText"></span>
+
     </div>
 
     <button class="btn" id="nextGiftButton" onclick="nextGift()">
@@ -417,34 +545,50 @@ video{
     </button>
 
   </div>
+
 </section>
 
+
 <!-- LAST SURPRISE -->
+
 <section class="screen" id="lastSurprise">
+
   <div class="card">
 
-    <div class="mini">You unlocked all 7 gifts</div>
+    <div class="mini">
+      You unlocked all 7 gifts
+    </div>
 
-    <h2 style="font-size:38px">One Last Surprise ❤️</h2>
+    <h2 style="font-size:38px">
+      One Last Surprise ❤️
+    </h2>
 
     <p class="subtitle" style="margin-top:18px">
       There is still one little piece of my heart waiting for you.
     </p>
 
-    <div class="last-heart" onclick="openVideo()">❤️</div>
+    <div class="last-heart" onclick="openVideo()">
+      ❤️
+    </div>
 
     <div class="click-heart">
       CLICK ON MY HEART
     </div>
 
   </div>
+
 </section>
 
+
 <!-- VIDEO -->
+
 <section class="screen" id="videoScreen">
+
   <div class="card">
 
-    <div class="mini">For you, my love ❤️</div>
+    <div class="mini">
+      For you, my love ❤️
+    </div>
 
     <h2 style="font-size:34px">
       A Memory From My Heart
@@ -458,20 +602,26 @@ video{
         playsinline
         onended="showEnding()">
 
-        <!-- WE WILL ADD YOUR VIDEO FILE HERE LATER -->
+        <!-- YOUR VIDEO WILL BE ADDED HERE LATER -->
 
       </video>
 
     </div>
 
   </div>
+
 </section>
 
-<!-- ENDING -->
-<section class="screen final-screen" id="endingScreen">
-  <div class="card">
 
-    <div class="final-heart">❤️</div>
+<!-- FULL SCREEN ENDING -->
+
+<section class="screen" id="endingScreen">
+
+  <div class="final-content">
+
+    <div class="final-heart">
+      ❤️
+    </div>
 
     <h2 class="final-title">
       Thank you for coming into my life. ❤️
@@ -482,7 +632,9 @@ video{
     </div>
 
   </div>
+
 </section>
+
 
 <script>
 
@@ -586,7 +738,26 @@ function showScreen(id){
   document.getElementById(id)
   .classList.add("active");
 
-  window.scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+function showLoveQuestion(){
+
+  document.getElementById("noMessage").innerText = "";
+
+  showScreen("loveScreen");
+
+}
+
+function noLove(){
+
+  document.getElementById("noMessage").innerText =
+  "Nice try 😜 Only YES works here ❤️";
+
 }
 
 function startGame(){
@@ -741,10 +912,7 @@ function startPetals(){
 
   container.innerHTML = "";
 
-  const petals =
-  ["🌹","🌸","💮"];
-
-  for(let i=0;i<35;i++){
+  for(let i=0;i<45;i++){
 
     const petal =
     document.createElement("div");
@@ -753,31 +921,25 @@ function startPetals(){
     "petal";
 
     petal.innerText =
-    petals[
-      Math.floor(
-        Math.random()*petals.length
-      )
-    ];
+    Math.random() > .35 ? "🌹" : "🌸";
 
     petal.style.left =
     Math.random()*100+"vw";
 
     petal.style.animationDuration =
-    (6+Math.random()*6)+"s";
+    (5+Math.random()*7)+"s";
 
     petal.style.animationDelay =
     (Math.random()*5)+"s";
 
     petal.style.fontSize =
-    (18+Math.random()*22)+"px";
+    (18+Math.random()*27)+"px";
 
     container.appendChild(petal);
 
   }
 
 }
-
-/* background hearts */
 
 const hearts =
 document.getElementById("bgHearts");
@@ -815,8 +977,6 @@ for(let i=0;i<23;i++){
   hearts.appendChild(h);
 
 }
-
-/* press Enter to submit answer */
 
 document
 .getElementById("answerInput")
